@@ -8,14 +8,15 @@
 
 
 
-$app->get('/roles', function ($request, $response, $args) {
+$app->get('/usuarios', function ($request, $response, $args) {
 
 //    Sample log message
 //    $this->logger->info("Slim-Skeleton '/' route");
-    
+
     $paramsQuery = $request->getQueryParams();
+    
     $body = $response->getBody();
-    $collection = $this->conexiondb->selectCollection("roles");
+    $collection = $this->conexiondb->selectCollection("usuarios");
 
     if (empty($paramsQuery)) {
         $rows = $collection->find();
@@ -27,34 +28,35 @@ $app->get('/roles', function ($request, $response, $args) {
     return $response;
 });
 
-$app->get('/roles/{id}', function ($request, $response, $args) {
+
+$app->get('/usuarios/{id}', function ($request, $response, $args) {
     // Sample log message
 //    $this->logger->info("Slim-Skeleton '/' route");
     $body = $response->getBody();
-    $collection = $this->conexiondb->selectCollection("roles");
+    $collection = $this->conexiondb->selectCollection("usuarios");
     $row = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($args['id'])]);
     $body->write(arrayToJson($row));
     return $response;
 });
 
-$app->post('/roles', function ($request, $response, $args) {
+$app->post('/usuarios', function ($request, $response, $args) {
     // Sample log message
 //    $this->logger->info("Slim-Skeleton '/' route");
     $data = $request->getParsedBody();
     $body = $response->getBody();
-    $collection = $this->conexiondb->selectCollection("roles");
+    $collection = $this->conexiondb->selectCollection("usuarios");
     $result = $collection->insertOne($data);
     $data['_id'] = (string) $result->getInsertedId();
     $body->write(json_encode($data));
     return $response;
 });
 
-$app->put('/roles/{id}', function ($request, $response, $args) {
+$app->put('/usuarios/{id}', function ($request, $response, $args) {
     // Sample log message
 //    $this->logger->info("Slim-Skeleton '/' route");
     $data = $request->getParsedBody(); //obtiene datos del formulario
     $body = $response->getBody();
-    $collection = $this->conexiondb->selectCollection("roles");
+    $collection = $this->conexiondb->selectCollection("usuarios");
     unset($data['_id']);
     $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($args['id'])], ['$set' => $data]);
     $data['_id'] = $args['id'];
@@ -62,12 +64,12 @@ $app->put('/roles/{id}', function ($request, $response, $args) {
     return $response;
 });
 
-$app->delete('/roles/{id}', function ($request, $response, $args) {
+$app->delete('/usuarios/{id}', function ($request, $response, $args) {
     // Sample log message
 //    $this->logger->info("Slim-Skeleton '/' route");
     $data = $request->getParsedBody();
     $body = $response->getBody();
-    $collection = $this->conexiondb->selectCollection("roles");
+    $collection = $this->conexiondb->selectCollection("usuarios");
     $collection->findOneAndDelete(['_id' => new MongoDB\BSON\ObjectID($args['id'])]);
     $body->write(json_encode($data));
     return $response;

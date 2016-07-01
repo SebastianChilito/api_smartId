@@ -13,6 +13,9 @@
         rol: {
             _id: null,
             nombre: null
-        }
+        },
+        es_tercero: false,
+        es_empleado: false,
+        row_id: null
     }
 ]
