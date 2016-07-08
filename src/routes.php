@@ -14,3 +14,5 @@ $app->get('/', function ($request, $response, $args) {
 
 require __DIR__ . '/../src/routes/modulo_usuarios/roles.php';
 require __DIR__ . '/../src/routes/modulo_usuarios/usuarios.php';
+require __DIR__ . '/../src/routes/modulo_terceros/terceros.php';
+require __DIR__ . '/../src/routes/modulo_terceros/anotaciones.php';
