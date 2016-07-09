@@ -14,7 +14,7 @@ $app->get('/usuarios', function ($request, $response, $args) {
 //    $this->logger->info("Slim-Skeleton '/' route");
 
     $paramsQuery = $request->getQueryParams();
-    
+
     $body = $response->getBody();
     $collection = $this->conexiondb->selectCollection("usuarios");
 
@@ -45,6 +45,9 @@ $app->post('/usuarios', function ($request, $response, $args) {
     $data = $request->getParsedBody();
     $body = $response->getBody();
     $collection = $this->conexiondb->selectCollection("usuarios");
+
+    $data['password'] = $this->Hashing->password($data['password']);
+
     $result = $collection->insertOne($data);
     $data['_id'] = (string) $result->getInsertedId();
     $body->write(json_encode($data));
@@ -57,12 +60,18 @@ $app->put('/usuarios/{id}', function ($request, $response, $args) {
     $data = $request->getParsedBody(); //obtiene datos del formulario
     $body = $response->getBody();
     $collection = $this->conexiondb->selectCollection("usuarios");
+    
+    if (!empty(trim($data['password']))) {
+        $data['password'] = $this->Hashing->password($data['password']);
+    }
+    
     unset($data['_id']);
     $collection->updateOne(['_id' => new MongoDB\BSON\ObjectID($args['id'])], ['$set' => $data]);
     $data['_id'] = $args['id'];
     $body->write(json_encode($data));
     return $response;
 });
+
 
 $app->delete('/usuarios/{id}', function ($request, $response, $args) {
     // Sample log message

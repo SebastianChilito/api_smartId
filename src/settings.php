@@ -22,6 +22,20 @@ return [
             'database' => 'samlook',
 //            'username' => 'root',
 //            'password' => '123456',
+        ],
+        
+              
+        // security strings salts
+        'security'=>[
+            /**
+             * A random string used in security hashing methods.
+             */
+            'salt' => 'DYhG93b0qyJfIxVoJJALSKDFasdfaskljasdfueoieutredfjasdfksaUubWwvniR2G0Fgmi',
+            
+            /**
+             * A random numeric string (digits only) used to encrypt/decrypt strings.
+             */
+            'cipherSeed' => '7693023452093852034523685479096574535424967483645'
         ]
     ],
 ];

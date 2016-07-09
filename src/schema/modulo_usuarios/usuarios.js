@@ -10,10 +10,11 @@
         _id: null,
         nickname: null,
         password: null,
+        permitir_ingreso: false,
         rol: {
             _id: null,
             nombre: null
-        },
+        },        
         es_tercero: false,
         es_empleado: false,
         row_id: null

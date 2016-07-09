@@ -12,5 +12,6 @@ $app->get('/', function ($request, $response, $args) {
 
 
 
+require __DIR__ . '/../src/routes/modulo_usuarios/auth.php';
 require __DIR__ . '/../src/routes/modulo_usuarios/roles.php';
 require __DIR__ . '/../src/routes/modulo_usuarios/usuarios.php';

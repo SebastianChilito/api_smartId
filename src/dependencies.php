@@ -1,4 +1,5 @@
 <?php
+
 // DIC configuration
 
 $container = $app->getContainer();
@@ -25,4 +26,23 @@ $container['conexiondb'] = function ($c) {
             //,['typeMap' => ['root' => 'array', 'document' => 'array']]
     );
     return $client->selectDatabase($settingsDb['database']);
+};
+
+
+
+// handle passwords, encryption and decryption
+$container['Hashing'] = function($c) {
+    $security = $c->get('settings')['security'];
+    class Hashing {
+        private $salt;
+        private $cipherSeed;
+        public function __construct($salt, $cipherSeed) {
+            $this->salt = $salt;
+            $this->cipherSeed = $cipherSeed;
+        }
+        public function password($string) {
+            return password_hash($string, PASSWORD_BCRYPT, ['cost' => 12, 'salt' => $this->salt]);
+        }
+    }
+    return new Hashing($security['salt'], $security['cipherSeed']);
 };
